@@ -10,12 +10,7 @@ var Main = React.createClass({
         return(
             <div>
                 <div className="jumbotron" style={jumboStyle}>
-                    <h1 className="text-center">
-                        <strong>
-                            <i className="fa fa-newspaper-o">    </i>
-                            New York Times Search
-                        </strong>
-                    </h1>
+                    <h1 className="text-center"><strong><i className="fa fa-newspaper-o"></i>    New York Times Search</strong></h1>
                 </div>
                 <Search />
                 <Result />
