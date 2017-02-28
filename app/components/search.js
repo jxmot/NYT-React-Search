@@ -75,7 +75,8 @@ var Search = React.createClass({
 
     renderField: function(id, label, field) {
         return (
-            <div className={$c('form-group', {'has-error': id in this.state.errors})}>
+            //<div className={$c('form-group', {'has-error': id in this.state.errors})}>
+            <div className='form-group'>
                 <label htmlFor={id}>{label}</label>
                 {field}
             </div>
