@@ -35,9 +35,10 @@ var Result = React.createClass({
         if(count > 0) {
             <h3>There are {count} matching items.</h3>
             var list = items.map(function(item) {
-                return item[0].outerHTML;
+                return item[0].outerHTML
             })
-            return <div>{list}</div>
+            var tmp = list.join('<br />')
+            return <div dangerouslySetInnerHTML={{__html:tmp}}> </div>
         } else {
             return <h3>I got nuttin</h3>
         }

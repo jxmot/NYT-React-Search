@@ -52,7 +52,7 @@ var Search = React.createClass({
             runQuery(this.getFormData(), function(items) {
                 console.log('got stuff????')
                 console.log(items.length)
-                temp.setState({submitted: null, items: items, count: items.length})
+                temp.setState({submitted: temp.getFormData(), items: items, count: items.length})
             })
 
         } else {
@@ -87,7 +87,7 @@ var Search = React.createClass({
                         </div>
                         <div className="panel-body">
                             <form role="form">
-                                {this.renderTextInput('searchTerm', 'Search Term:'+this.props.count)}
+                                {this.renderTextInput('searchTerm', 'Search Term:')}
                                 {this.renderSelect('numItemsSelect', 'Number of Items to Retrieve:', ITEMQTYCHOICES)}
                                 {this.renderTextInput('startDate', 'Start Date (YYYYMMDD):')}
                                 {this.renderTextInput('endDate', 'End Date (YYYYMMDD):')}
@@ -104,6 +104,11 @@ var Search = React.createClass({
         )
     },
 
+    /*
+        NOTE: Not sure why, but if this is used above instead of
+        the "<Result items={this.state.items} count={this.state.count}/>"
+        then the entire element isn't rendered.
+    */
     renderResults: function() {
         <Result items={this.items} count={this.count}/>
     },
