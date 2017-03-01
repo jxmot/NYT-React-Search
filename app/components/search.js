@@ -22,12 +22,14 @@ var Search = React.createClass({
                 errors[field] = 'This field is required'
             }
         }.bind(this))
+
         this.setState({errors: errors})
 
         var isValid = true
 
         for (var error in errors) {
             isValid = false
+            console.log(errors)
             break
         }
 
@@ -46,8 +48,17 @@ var Search = React.createClass({
 
     handleSubmit: function() {
         if (this.isValid()) {
-            console.log('setting state.....')
-            this.setState({submitted: this.getFormData(), items: ['item1', 'item2', 'item3', 'item4'], count: 4})
+            var temp = this
+            runQuery(this.getFormData(), function(items) {
+                console.log('got stuff????')
+                console.log(items.length)
+                temp.setState({submitted: null, items: items, count: items.length})
+            })
+
+        } else {
+            console.log('oops!')
+            console.log(this.state.errors)
+            console.log(this.props.errors)
         }
     },
 
@@ -58,6 +69,10 @@ var Search = React.createClass({
         this.refs.endDate.value = ''
         console.log('clearing state.....')
         this.setState({submitted: null, items: [], count: 0})
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        console.log('SEARCH - componentWillReceiveProps')
     },
 
     render: function() {

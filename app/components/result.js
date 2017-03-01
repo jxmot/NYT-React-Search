@@ -10,6 +10,7 @@ var Result = React.createClass({
         console.log('RESULT - componentWillReceiveProps')
         console.log(nextProps.items)
         console.log(nextProps.count)
+        if(nextProps.count === 0) clearResults()
     },
 
     render: function() {
@@ -33,14 +34,23 @@ var Result = React.createClass({
     renderResults: function(items, count) {
         if(count > 0) {
             <h3>There are {count} matching items.</h3>
-            var ulist = items.map(function(value) {
-                return <li key={value}>{value}</li>
+            var list = items.map(function(item) {
+                return item[0].outerHTML;
             })
-            return <ul>{ulist}</ul>
+            return <div>{list}</div>
         } else {
             return <h3>I got nuttin</h3>
         }
+    },
+
+    renderItem: function(html) {
+        return (
+            <div>
+                {html}
+            </div>
+        )
     }
+
 });
 
 module.exports = Result;
