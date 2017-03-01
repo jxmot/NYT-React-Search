@@ -5,33 +5,53 @@ var ITEMQTYCHOICES = ['1', '5', '10', '15', '20'];
 var Search = React.createClass({
 
     getInitialState: function() {
-        return {errors: {}}
+        return {errors: {}, submitted: null}
     },
 
     isValid: function() {
-        var fields = ['searchTerm', 'numRecordsSelect', 'startYear', 'endYear']
+
+        var fields = ['searchTerm', 'numItemsSelect', 'startDate', 'endDate']
 
         var errors = {}
         fields.forEach(function(field) {
-            var value = trim(this.refs[field].getDOMNode().value)
+            //var value = trim(this.refs[field].getDOMNode().value)
+            var value = this.refs[field].value.replace(/^\s+|\s+$/g, '')
             if(!value) {
                 errors[field] = 'This field is required'
             }
         }.bind(this))
         this.setState({errors: errors})
-    
+
         var isValid = true
+
         for (var error in errors) {
             isValid = false
             break
         }
+
         return isValid
     },
 
     getFormData: function() {
         var data = {
+            searchTerm: this.refs.searchTerm.value,
+            numItemsSelect: this.refs.numItemsSelect.value,
+            startDate: this.refs.startDate.value,
+            endDate: this.refs.endDate.value
+/*
+            searchTerm: this.refs.searchTerm.getDOMNode().value,
+            numItemsSelect: this.refs.numItemsSelect.getDOMNode().value,
+            startDate: this.refs.startDate.getDOMNode().value,
+            endDate: this.refs.endDate.getDOMNode().value
+*/
         }
         return data
+    },
+
+    handleSubmit: function() {
+        if (this.isValid()) {
+            this.setState({submitted: this.getFormData()})
+        }
     },
 
     render: function() {
@@ -46,8 +66,11 @@ var Search = React.createClass({
                         <div className="panel-body">
                             <form role="form">
                                 {this.renderTextInput('searchTerm', 'Search Term:')}
-                                {this.renderSelect('numRecordsSelect', 'Number of Records to Retrieve:', ITEMQTYCHOICES)}
-                                {this.renderTextInput('searchTerm', 'Start Date (Optional):')}
+                                {this.renderSelect('numItemsSelect', 'Number of Items to Retrieve:', ITEMQTYCHOICES)}
+                                {this.renderTextInput('startDate', 'Start Date (YYYYMMDD):')}
+                                {this.renderTextInput('endDate', 'End Date (YYYYMMDD):')}
+                                <br />
+                                <button type="submit" className="btn btn-default" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
                             </form>
                         </div>
                     </div>
@@ -75,22 +98,14 @@ var Search = React.createClass({
 
     renderField: function(id, label, field) {
         return (
-            //<div className={$c('form-group', {'has-error': id in this.state.errors})}>
+            <div className={$c('form-group', {'has-error': id in this.state.errors})}>
             <div className='form-group'>
                 <label htmlFor={id}>{label}</label>
                 {field}
             </div>
         )
     }
-
 });
-
-var trim = function() {
-    var TRIM_RE = /^\s+|\s+$/g
-    return function trim(string) {
-        return string.replace(TRIM_RE, '')
-    }
-}()
 
 function $c(staticClassName, conditionalClassNames) {
     var classNames = []
@@ -107,7 +122,6 @@ function $c(staticClassName, conditionalClassNames) {
     }
     return classNames.join(' ')
 }
-
 
 module.exports = Search;
 
