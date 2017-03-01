@@ -7,6 +7,7 @@ var ITEMQTYCHOICES = ['1', '5', '10', '15', '20'];
 var Search = React.createClass({
 
     getInitialState: function() {
+        console.log('getInitialState.....')
         return {errors: {}, submitted: null}
     },
 
@@ -45,7 +46,8 @@ var Search = React.createClass({
 
     handleSubmit: function() {
         if (this.isValid()) {
-            this.setState({submitted: this.getFormData()})
+            console.log('setting state.....')
+            this.setState({submitted: this.getFormData(), items: ['item1', 'item2', 'item3', 'item4'], count: 4})
         }
     },
 
@@ -54,6 +56,8 @@ var Search = React.createClass({
         this.refs.numItemsSelect.value = ITEMQTYCHOICES[0]
         this.refs.startDate.value = ''
         this.refs.endDate.value = ''
+        console.log('clearing state.....')
+        this.setState({submitted: null, items: [], count: 0})
     },
 
     render: function() {
@@ -68,7 +72,7 @@ var Search = React.createClass({
                         </div>
                         <div className="panel-body">
                             <form role="form">
-                                {this.renderTextInput('searchTerm', 'Search Term:')}
+                                {this.renderTextInput('searchTerm', 'Search Term:'+this.props.count)}
                                 {this.renderSelect('numItemsSelect', 'Number of Items to Retrieve:', ITEMQTYCHOICES)}
                                 {this.renderTextInput('startDate', 'Start Date (YYYYMMDD):')}
                                 {this.renderTextInput('endDate', 'End Date (YYYYMMDD):')}
@@ -80,9 +84,13 @@ var Search = React.createClass({
                     </div>
                 </div>
             </div>
-            <Result />
+            <Result items={this.state.items} count={this.state.count}/>
         </div>
         )
+    },
+
+    renderResults: function() {
+        <Result items={this.items} count={this.count}/>
     },
 
     renderTextInput: function(id, label) {
