@@ -1,5 +1,7 @@
 var React = require('react');
 
+var Result = require('./result.js');
+
 var ITEMQTYCHOICES = ['1', '5', '10', '15', '20'];
 
 var Search = React.createClass({
@@ -14,7 +16,6 @@ var Search = React.createClass({
 
         var errors = {}
         fields.forEach(function(field) {
-            //var value = trim(this.refs[field].getDOMNode().value)
             var value = this.refs[field].value.replace(/^\s+|\s+$/g, '')
             if(!value) {
                 errors[field] = 'This field is required'
@@ -38,12 +39,6 @@ var Search = React.createClass({
             numItemsSelect: this.refs.numItemsSelect.value,
             startDate: this.refs.startDate.value,
             endDate: this.refs.endDate.value
-/*
-            searchTerm: this.refs.searchTerm.getDOMNode().value,
-            numItemsSelect: this.refs.numItemsSelect.getDOMNode().value,
-            startDate: this.refs.startDate.getDOMNode().value,
-            endDate: this.refs.endDate.getDOMNode().value
-*/
         }
         return data
     },
@@ -54,8 +49,16 @@ var Search = React.createClass({
         }
     },
 
+    handleClear: function() {
+        this.refs.searchTerm.value = ''
+        this.refs.numItemsSelect.value = ITEMQTYCHOICES[0]
+        this.refs.startDate.value = ''
+        this.refs.endDate.value = ''
+    },
+
     render: function() {
         return(
+        <div>
             <div className="row">
                 <div className="col-sm-12">
                 <br />
@@ -70,12 +73,15 @@ var Search = React.createClass({
                                 {this.renderTextInput('startDate', 'Start Date (YYYYMMDD):')}
                                 {this.renderTextInput('endDate', 'End Date (YYYYMMDD):')}
                                 <br />
-                                <button type="submit" className="btn btn-default" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
+                                <button type="button" className="btn btn-default" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
+                                <button type="button" className="btn btn-default" id="clearAll" onClick={this.handleClear}><i className="fa fa-trash"></i> Clear Results</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <Result />
+        </div>
         )
     },
 
@@ -98,7 +104,6 @@ var Search = React.createClass({
 
     renderField: function(id, label, field) {
         return (
-            <div className={$c('form-group', {'has-error': id in this.state.errors})}>
             <div className='form-group'>
                 <label htmlFor={id}>{label}</label>
                 {field}
@@ -106,22 +111,6 @@ var Search = React.createClass({
         )
     }
 });
-
-function $c(staticClassName, conditionalClassNames) {
-    var classNames = []
-    if (typeof conditionalClassNames == 'undefined') {
-        conditionalClassNames = staticClassName
-    }
-    else {
-        classNames.push(staticClassName)
-    }
-    for (var className in conditionalClassNames) {
-        if (!!conditionalClassNames[className]) {
-            classNames.push(className)
-        }
-    }
-    return classNames.join(' ')
-}
 
 module.exports = Search;
 
