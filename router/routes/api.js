@@ -42,7 +42,7 @@ module.exports = function(app, db, approot) {
             if(!doc) {
                 var tmp = new db.ArticleModel(req.body);
                 tmp.save(function (err, doc) {
-                    if (err) throw err;
+                    if(err) throw err;
                     // this will redirect to GET /api/saved
                     res.redirect('/api/saved');
                 });
@@ -54,29 +54,19 @@ module.exports = function(app, db, approot) {
     });
 
     /*
-        DELETE /api/saved - 
+        DELETE /api/saved:id - 
     */
     app.delete('/api/saved/:id', function(req, res) {
         console.log('delete /api/saved');
         console.log(req.params.id);
         db.ArticleModel.findOneAndRemove({'_id' : req.params.id},
         function(err, result) {
-            if (err) throw err;
+            if(err) throw err;
             if(result) {
                 console.log(result);
                 // this will redirect to GET /api/saved
                 res.redirect('/index');
             }
         });
-
-/*
-        .exec(function (err, result) {
-            if(err) throw err;
-            // doc will be null if not found
-            if(result) {
-                console.log(result);
-            }
-        });
-*/
     });
 };
