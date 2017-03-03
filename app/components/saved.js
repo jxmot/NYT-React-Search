@@ -42,7 +42,7 @@ var Saved = React.createClass({
                         <div className="panel-heading">
                             <h3 className="panel-title"><strong><i className="fa fa-table"></i>    Saved Articles</strong></h3>
                         </div>
-                        {this.renderSaved(this.props.saved)}
+                        {this.renderSaved(this.state.saved)}
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@ var Saved = React.createClass({
             var articles = saved.map(function(article, index) {
                 var id = 'savedWell-' + (index + 1);
                 return (
-                    <div className="well" id={id} key={article.tagCounter}>
+                    <div className="well" id={id} key={id}>
                         <h3>{article.headline}</h3>
                         <h5>{article.dateSaved}</h5>
                     </div>
