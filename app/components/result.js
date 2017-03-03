@@ -34,6 +34,21 @@ var Result = React.createClass({
         )
     },
 
+    getFormData: function() {
+        var data = {
+            headline: this.refs.headline.value,
+            byline: this.refs.byline.value,
+            sectionName: this.refs.sectionName.value,
+            pubDate: this.refs.pubDate.value,
+            webURL: this.refs.webURL.value
+        }
+        return data
+    },
+
+    handleSave: function() {
+        console.log(this.getFormData())
+    },
+
     renderArticles: function(items, count) {
         var articles = items.map(function(article) {
             var id = 'articleWell-' + article.tagCounter
@@ -45,13 +60,27 @@ var Result = React.createClass({
                     <h5>{article.sectionName}</h5>
                     <h5>{article.pubDate}</h5>
                     <a target="_blank" href={article.webURL}>{article.webURL}</a>
+                    <form role="form">
+                        {this.renderHiddenInput('headline', article.headline)}
+                        {this.renderHiddenInput('byline', article.byline)}
+                        {this.renderHiddenInput('sectionName', article.sectionName)}
+                        {this.renderHiddenInput('pubDate', article.pubDate)}
+                        {this.renderHiddenInput('webURL', article.webURL)}
+                        <button type="button" className="btn btn-success" id="runSave" onClick={this.handleSave}>Save</button>
+                    </form>
                 </div>
             )
-        });
+        }.bind(this));
         return (
             <div className="panel-body" id="wellSection">
                 {articles}
             </div>
+        )
+    },
+
+    renderHiddenInput: function(id, value) {
+        return (
+            <input type="hidden" id={id} ref={id} value={value}/>
         )
     },
 
