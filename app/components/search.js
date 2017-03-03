@@ -1,3 +1,7 @@
+/* ************************************************************************ */
+/*
+    This portion is the form and the child that contains the search results.
+*/
 var React = require('react');
 
 // Helper for making AJAX requests to our API
@@ -5,6 +9,7 @@ var helpers = require("./utils/helpers");
 
 var Result = require('./result.js');
 
+// only 3 choices, NYT seems to return a max of 10
 var ITEMQTYCHOICES = ['1', '5', '10'];
 
 var Search = React.createClass({

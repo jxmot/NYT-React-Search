@@ -1,3 +1,8 @@
+/* ************************************************************************ */
+/*
+    This portion is a child of the search component. It renders the search 
+    results.
+*/
 var React = require('react');
 
 var Result = React.createClass({

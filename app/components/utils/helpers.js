@@ -1,4 +1,8 @@
-// Include the axios package for performing HTTP requests (promise based alternative to request)
+/* ************************************************************************ */
+/*
+    This helper provides the the function to send requests to NYT for 
+    articles.
+*/
 var axios = require('axios');
 
 // NYT authentication key

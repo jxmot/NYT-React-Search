@@ -1,3 +1,7 @@
+/* ************************************************************************ */
+/*
+    This portion wraps the form and its children (result.js)
+*/
 var React = require('react');
 
 var Search = require('./search.js');
