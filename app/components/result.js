@@ -39,7 +39,7 @@ var Result = React.createClass({
                     <h5>{article.byline}</h5>
                     <h5>{article.sectionName}</h5>
                     <h5>{article.pubDate}</h5>
-                    <a href={article.webURL}>{article.webURL}</a>
+                    <a target="_blank" href={article.webURL}>{article.webURL}</a>
                 </div>
             )
         });

@@ -2,11 +2,11 @@
   "name": "NYT-React-Search",
   "version": "0.1.0",
   "description": "Week 19 HW-15: NYT React Search - A React-based rendition of the New York Times Article Search application",
-  "main": "public/index.html",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack & node server",
-    "start": "node server",
+    "start": "node server.js",
     "build": "webpack -w"
   },
   "repository": {
