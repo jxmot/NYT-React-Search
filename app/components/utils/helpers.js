@@ -45,7 +45,7 @@ var helper = {
                     headline: (article.headline != 'null') ? article.headline.main : '',
                     byline: (article.byline && article.byline.hasOwnProperty('original')) ? article.byline.original : '',
                     sectionName: article.section_name,
-                    pubDate: article.pub_date,
+                    pubDate: new Date(article.pub_date).toLocaleString(),
                     webURL: article.web_url
                 });
                 itemList.push(item);
