@@ -16,7 +16,7 @@ var articleData = {
 };
 var itemList = [];
 
-var saveList = [];
+//var saveList = [];
 
 // Helper functions for making API Calls
 var helper = {
@@ -86,7 +86,7 @@ var helper = {
     getArticles: function() {
         return axios.get('/api/saved')
         .then(function(respData) {
-            return respData;
+            return respData.data;
         })
         .catch(function (error) {
             if(error) {

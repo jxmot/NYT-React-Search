@@ -44,7 +44,7 @@ var Result = React.createClass({
     renderArticles: function(items, count) {
         var articles = items.map(function(article) {
             var id = 'articleWell-' + article.tagCounter
-            var numberStyle = {padding: "2px"};
+            var numberStyle = {margin: "2px"};
             return (
                 <div className="well" id={id} key={article.tagCounter}>
                     <h3><span className="label label-success" style={numberStyle}>{article.tagCounter}</span><strong>{article.headline}</strong></h3>

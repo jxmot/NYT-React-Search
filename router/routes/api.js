@@ -16,11 +16,13 @@ module.exports = function(app, db, approot) {
         GET /api/saved - 
     */
     app.get('/api/saved', function(req, res) {
+        console.log('get - /api/saved');
         // respond with all saved articles
         db.ArticleModel.find({'deleted': false})
         .exec(function (err, saved) {
             if(err) throw err;
             var list = JSON.parse(JSON.stringify(saved));
+            console.log(list);
             res.json(list);
         });
     });
