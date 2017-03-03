@@ -1,14 +1,17 @@
 var React = require('react');
 
+// Helper for making AJAX requests to our API
+var helpers = require("./utils/helpers");
+
 var Result = require('./result.js');
 
-var ITEMQTYCHOICES = ['1', '5', '10', '15', '20'];
+var ITEMQTYCHOICES = ['1', '5', '10'];
 
 var Search = React.createClass({
 
     getInitialState: function() {
         console.log('getInitialState.....')
-        return {errors: {}, submitted: null}
+        return {errors: {}, submitted: null, items: []}
     },
 
     isValid: function() {
@@ -47,14 +50,14 @@ var Search = React.createClass({
     },
 
     handleSubmit: function() {
-        if (this.isValid()) {
-            var temp = this
-            runQuery(this.getFormData(), function(items) {
+        if(this.isValid()) {
+             helpers.runQuery(this.getFormData())
+            .then(function(data) {
                 console.log('got stuff????')
-                console.log(items.length)
-                temp.setState({submitted: temp.getFormData(), items: items, count: items.length})
-            })
-
+                console.log(data.length)
+                var items = JSON.parse(JSON.stringify(data))
+                this.setState({items: data, count: items.length});
+            }.bind(this));
         } else {
             console.log('oops!')
             console.log(this.state.errors)

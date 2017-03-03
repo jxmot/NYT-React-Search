@@ -10,7 +10,7 @@ var Result = React.createClass({
         console.log('RESULT - componentWillReceiveProps')
         console.log(nextProps.items)
         console.log(nextProps.count)
-        if(nextProps.count === 0) clearResults()
+        if(nextProps.count === 0) this.clearArticles()
     },
 
     render: function() {
@@ -22,36 +22,50 @@ var Result = React.createClass({
                         <div className="panel-heading">
                             <h3 className="panel-title"><strong><i className="fa fa-table"></i>    Top Articles</strong></h3>
                         </div>
+                        {this.renderArticles(this.props.items, this.props.count)}
+                    </div>
+                </div>
+            </div>
+        )
+    },
+
+    renderArticles: function(items, count) {
+        var articles = items.map(function(article) {
+            var id = 'articleWell-' + article.tagCounter
+            var numberStyle = {padding: "2px"};
+            return (
+                <div className="well" id={id} key={article.tagCounter}>
+                    <h3><span className="label label-success" style={numberStyle}>{article.tagCounter}</span><strong>{article.headline}</strong></h3>
+                    <h5>{article.byline}</h5>
+                    <h5>{article.sectionName}</h5>
+                    <h5>{article.pubDate}</h5>
+                    <a href={article.webURL}>{article.webURL}</a>
+                </div>
+            )
+        });
+        return (
+            <div className="panel-body" id="wellSection">
+                {articles}
+            </div>
+        )
+    },
+
+    clearArticles: function() {
+        return(
+            <div className="row">
+                <div className="col-sm-12">
+                    <br />
+                    <div className="panel panel-primary">
+                        <div className="panel-heading">
+                            <h3 className="panel-title"><strong><i className="fa fa-table"></i>    Top Articles</strong></h3>
+                        </div>
                         <div className="panel-body" id="wellSection">
-                            {this.renderResults(this.props.items, this.props.count)}
                         </div>
                     </div>
                 </div>
             </div>
-        );
-    },
-
-    renderResults: function(items, count) {
-        if(count > 0) {
-            <h3>There are {count} matching items.</h3>
-            var list = items.map(function(item) {
-                return item[0].outerHTML
-            })
-            var tmp = list.join('<br />')
-            return <div dangerouslySetInnerHTML={{__html:tmp}}> </div>
-        } else {
-            return <h3>I got nuttin</h3>
-        }
-    },
-
-    renderItem: function(html) {
-        return (
-            <div>
-                {html}
-            </div>
         )
     }
-
 });
 
 module.exports = Result;
