@@ -98,6 +98,18 @@ var helper = {
     },
 
     delArticle: function(data) {
+        return axios.delete('/api/saved/'+data._id)
+        .then(function(respData) {
+            console.log(respData);
+            return respData;
+        })
+        .catch(function (error) {
+            if(error) {
+                console.log(error);
+                throw error;
+                return null;
+            }
+        });
     }
 };
 

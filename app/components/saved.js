@@ -32,6 +32,10 @@ var Saved = React.createClass({
         console.log(nextProps.count)
     },
 
+    handleDelete: function(article, e) {
+        helpers.delArticle(article)
+    },
+
     render: function() {
         console.log('Saved render');
         return(
@@ -62,6 +66,11 @@ var Saved = React.createClass({
                     <div className="well" id={id} key={id}>
                         <h3>{article.headline}</h3>
                         <h5>{article.dateSaved}</h5>
+                        <br />
+                        <br />
+                        <form role="form">
+                            <button type="button" className="btn btn-success" id="runSave" onClick={this.handleDelete.bind(this, article)}>Delete</button>
+                        </form>
                     </div>
                 )
             }.bind(this));

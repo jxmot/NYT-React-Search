@@ -53,6 +53,7 @@ var Result = React.createClass({
                     <h5>{article.pubDate}</h5>
                     <a target="_blank" href={article.webURL}>{article.webURL}</a>
                     <br />
+                    <br />
                     <form role="form">
                         <button type="button" className="btn btn-success" id="runSave" onClick={this.handleSave.bind(this, article)}>Save</button>
                     </form>
