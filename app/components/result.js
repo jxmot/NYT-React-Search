@@ -5,6 +5,9 @@
 */
 var React = require('react');
 
+// Helper for making AJAX requests to our API
+var helpers = require("./utils/helpers");
+
 var Result = React.createClass({
 
     getInitialState: function() {
@@ -34,19 +37,8 @@ var Result = React.createClass({
         )
     },
 
-    getFormData: function() {
-        var data = {
-            headline: this.refs.headline.value,
-            byline: this.refs.byline.value,
-            sectionName: this.refs.sectionName.value,
-            pubDate: this.refs.pubDate.value,
-            webURL: this.refs.webURL.value
-        }
-        return data
-    },
-
-    handleSave: function() {
-        console.log(this.getFormData())
+    handleSave: function(article, e) {
+        helpers.saveArticle(article)
     },
 
     renderArticles: function(items, count) {
@@ -60,13 +52,9 @@ var Result = React.createClass({
                     <h5>{article.sectionName}</h5>
                     <h5>{article.pubDate}</h5>
                     <a target="_blank" href={article.webURL}>{article.webURL}</a>
+                    <br />
                     <form role="form">
-                        {this.renderHiddenInput('headline', article.headline)}
-                        {this.renderHiddenInput('byline', article.byline)}
-                        {this.renderHiddenInput('sectionName', article.sectionName)}
-                        {this.renderHiddenInput('pubDate', article.pubDate)}
-                        {this.renderHiddenInput('webURL', article.webURL)}
-                        <button type="button" className="btn btn-success" id="runSave" onClick={this.handleSave}>Save</button>
+                        <button type="button" className="btn btn-success" id="runSave" onClick={this.handleSave.bind(this, article)}>Save</button>
                     </form>
                 </div>
             )
@@ -75,12 +63,6 @@ var Result = React.createClass({
             <div className="panel-body" id="wellSection">
                 {articles}
             </div>
-        )
-    },
-
-    renderHiddenInput: function(id, value) {
-        return (
-            <input type="hidden" id={id} ref={id} value={value}/>
         )
     },
 

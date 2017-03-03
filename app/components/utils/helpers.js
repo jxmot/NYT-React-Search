@@ -16,6 +16,8 @@ var articleData = {
 };
 var itemList = [];
 
+var saveList = [];
+
 // Helper functions for making API Calls
 var helper = {
 
@@ -57,6 +59,10 @@ var helper = {
             return itemList;
         });
     },
+
+    saveArticle: function(data) {
+        console.log(data);
+    }
 };
 
 // We export the API helper
