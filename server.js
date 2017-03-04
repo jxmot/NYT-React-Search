@@ -58,7 +58,7 @@ db.conn.once('open', function() {
         const io = require('socket.io').listen(server);
         // make available to any module that already has access to `app`
         app.set('socketio', io);
-        var socketEvents = require('./appSocket.js');
+        var socketEvents = require('./appsocket.js');
         socketEvents(io);
         console.log('Server - IDLE - listening for socket.io events');
         console.log('================================================');
