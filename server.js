@@ -32,6 +32,8 @@ app.use(function(req, res, next) {
 */
 app.set('port', (process.env.PORT || 3000));
 
+var server;
+
 /*
     Set up the database with our models
 */
@@ -47,9 +49,18 @@ db.conn.once('open', function() {
     router(app, db, __dirname);
 
     // go!
-    app.listen(app.get('port'), function () {
+    server = app.listen(app.get('port'), function () {
         console.log('Server - listening on port '+app.get('port'));
         console.log('Server - IDLE - waiting for the first connection');
+        console.log('================================================');
+        // listen for a socket.io connection and set up
+        // the socket events that we're interested in.
+        const io = require('socket.io').listen(server);
+        // make available to any module that already has access to `app`
+        app.set('socketio', io);
+        var socketEvents = require('./appsocket.js');
+        socketEvents(io);
+        console.log('Server - IDLE - listening for socket.io events');
         console.log('================================================');
     });
 });

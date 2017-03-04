@@ -7,6 +7,7 @@ var React = require('react');
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
 
+// this component's children
 var Result = require('./result.js');
 var Saved = require('./saved.js');
 
@@ -22,6 +23,7 @@ var Search = React.createClass({
 
     isValid: function() {
 
+        // the form fields we will validate
         var fields = ['searchTerm', 'numItemsSelect', 'startDate', 'endDate']
 
         var errors = {}
@@ -34,14 +36,16 @@ var Search = React.createClass({
 
         this.setState({errors: errors})
 
+        // set it now, the test will reset it if necessary
         var isValid = true
 
+        // if any errors were detected and saved then reset
+        // the valid flag to false and stop checking errors
         for (var error in errors) {
             isValid = false
             console.log(errors)
             break
         }
-
         return isValid
     },
 
@@ -112,22 +116,6 @@ var Search = React.createClass({
             <Saved />
         </div>
         )
-    },
-
-    getSaved: function() {
-        return helpers.getArticles().then(function (response) {
-            console.log(response);
-            return response
-        }.bind(this));
-    },
-
-    /*
-        NOTE: Not sure why, but if this is used above instead of
-        the "<Result items={this.state.items} count={this.state.count}/>"
-        then the entire element isn't rendered.
-    */
-    renderResults: function() {
-        <Result items={this.items} count={this.count}/>
     },
 
     renderTextInput: function(id, label) {

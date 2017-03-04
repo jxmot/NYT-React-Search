@@ -22,7 +22,6 @@ module.exports = function(app, db, approot) {
         .exec(function (err, saved) {
             if(err) throw err;
             var list = JSON.parse(JSON.stringify(saved));
-            console.log(list);
             res.json(list);
         });
     });
@@ -31,8 +30,7 @@ module.exports = function(app, db, approot) {
         POST /api/saved - 
     */
     app.post('/api/saved', function(req, res) {
-        console.log(req.body);
-
+        console.log('post - /api/saved');
         // use 'headline' and see if it's already
         // been saved, if so then do nothing.
         db.ArticleModel.findOne({'headline': req.body.headline})
@@ -43,12 +41,10 @@ module.exports = function(app, db, approot) {
                 var tmp = new db.ArticleModel(req.body);
                 tmp.save(function (err, doc) {
                     if(err) throw err;
-                    // this will redirect to GET /api/saved
-                    res.redirect('/api/saved');
+                    broadcastArticles(res);
                 });
             } else {
-                // this will redirect to GET /api/saved
-                res.redirect('/api/saved');
+                broadcastArticles(res);
             }
         });
     });
@@ -57,18 +53,28 @@ module.exports = function(app, db, approot) {
         DELETE /api/saved:id - 
     */
     app.delete('/api/saved/:id', function(req, res) {
-        console.log('delete /api/saved');
-        console.log(req.params.id);
+        console.log('delete - /api/saved');
         db.ArticleModel.findOneAndRemove({'_id' : req.params.id},
         function(err, result) {
             if(err) throw err;
-            if(result) {
-                console.log(result);
-                // this will redirect to GET /api/saved
-                //res.redirect('/index');
-                res.end();
-                // read the articles and send via socket
-            }
+            broadcastArticles(res);
         });
     });
+
+    /* ******************************************************************** */
+    /*
+        Broadcast Articles - searches the database for all records that are
+        not marked for deletion (part of a future feature) and broadcasts
+        what it finds to all clients connected via socket.io, since the 
+        article data is being broadcast we will "end" the request.
+    */
+    function broadcastArticles(res) {
+        db.ArticleModel.find({'deleted': false})
+        .exec(function (err, saved) {
+            if(err) throw err;
+            var list = JSON.parse(JSON.stringify(saved));
+            if(res !== undefined) res.end();
+            app.get('socketio').sockets.emit('broadcast', list);
+        });
+    };
 };

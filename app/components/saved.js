@@ -8,6 +8,15 @@ var React = require('react');
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
 
+// INVESTIGATE:
+// will need a means to change this programmatically even 
+// if the choices are hard coded - 
+//
+// development = http://localhost:3000
+// production  = https://heroku-deploy-server
+//
+var socket = io.connect();
+
 var Saved = React.createClass({
 
     getInitialState: function() {
@@ -17,13 +26,16 @@ var Saved = React.createClass({
 
     componentDidMount: function () {
         console.log('Saved componentDidMount');
-        helpers.getArticles().then(function (response) {
-            console.log(response);
-            // do something
-            //this.setState({saved: response.data});
-            this.setState({saved: response});
-            //this.forceUpdate();
+
+        socket.on('broadcast', function(data) {
+            console.log('received a broadcast');
+            this.setState({saved: data});
         }.bind(this));
+
+        helpers.getArticles().then(function (response) {
+            console.log('received a response');
+            this.setState({saved: response});
+         }.bind(this));
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -81,7 +93,6 @@ var Saved = React.createClass({
             </div>
         )
     }
-
 });
 
 module.exports = Saved;

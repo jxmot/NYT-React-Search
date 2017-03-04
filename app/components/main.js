@@ -4,10 +4,10 @@
 */
 var React = require('react');
 
+// the search component, contains the form and it's children
 var Search = require('./search.js');
 
 var Main = React.createClass({
-
     render: function render() {
         var jumboStyle = {backgroundColor: "#20315A", color:"white"};
         return(
@@ -19,7 +19,6 @@ var Main = React.createClass({
             </div>
         );
     }
-
 });
 
 module.exports = Main;
