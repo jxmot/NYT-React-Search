@@ -65,7 +65,9 @@ module.exports = function(app, db, approot) {
             if(result) {
                 console.log(result);
                 // this will redirect to GET /api/saved
-                res.redirect('/index');
+                //res.redirect('/index');
+                res.end();
+                // read the articles and send via socket
             }
         });
     });
