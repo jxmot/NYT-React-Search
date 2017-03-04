@@ -14,6 +14,7 @@ var Main = React.createClass({
             <div>
                 <div className="jumbotron" style={jumboStyle}>
                     <h1 className="text-center"><strong><i className="fa fa-newspaper-o"></i>    New York Times Search</strong></h1>
+                    <h3 className="text-center">A Node/Express/React/Mongoose/Socket.io Application</h3>
                 </div>
                 <Search />
             </div>
