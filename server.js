@@ -55,10 +55,15 @@ db.conn.once('open', function() {
         console.log('Server - IDLE - waiting for the first connection');
         console.log('================================================');
 
+        // listen for a socket.io connection and set up
+        // the socket events that we're interested in.
         socketEvents = require('./appSocket.js');
         const io = require('socket.io').listen(server);
+        // make available to any module that already has access to `app`
         app.set('socketio', io);
         socketEvents(io);
+        console.log('Server - IDLE - listening for socket.io events');
+        console.log('================================================');
     });
 });
 
