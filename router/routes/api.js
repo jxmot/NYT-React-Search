@@ -42,22 +42,10 @@ module.exports = function(app, db, approot) {
                 var tmp = new db.ArticleModel(req.body);
                 tmp.save(function (err, doc) {
                     if(err) throw err;
-                    db.ArticleModel.find({'deleted': false})
-                    .exec(function (err, saved) {
-                        if(err) throw err;
-                        var list = JSON.parse(JSON.stringify(saved));
-                        res.end();
-                        app.get('socketio').sockets.emit('broadcast', list);
-                    });
+                    broadcastArticles(res);
                 });
             } else {
-                db.ArticleModel.find({'deleted': false})
-                .exec(function (err, saved) {
-                    if(err) throw err;
-                    var list = JSON.parse(JSON.stringify(saved));
-                    res.end();
-                    app.get('socketio').sockets.emit('broadcast', list);
-                });
+                broadcastArticles(res);
             }
         });
     });
@@ -71,16 +59,23 @@ module.exports = function(app, db, approot) {
         db.ArticleModel.findOneAndRemove({'_id' : req.params.id},
         function(err, result) {
             if(err) throw err;
-            if(result) {
-                console.log(result);
-                db.ArticleModel.find({'deleted': false})
-                .exec(function (err, saved) {
-                    if(err) throw err;
-                    var list = JSON.parse(JSON.stringify(saved));
-                    res.end();
-                    app.get('socketio').sockets.emit('broadcast', list);
-                });
-            }
+            broadcastArticles(res);
         });
     });
+
+    /* ******************************************************************** */
+    /*
+        Broadcast Articles - searches the database for all records that are
+        not marked for deletion (part of a future feature) and broadcasts
+        what it finds to all clients connected via socket.io
+    */
+    function broadcastArticles(res) {
+        db.ArticleModel.find({'deleted': false})
+        .exec(function (err, saved) {
+            if(err) throw err;
+            var list = JSON.parse(JSON.stringify(saved));
+            if(res !== undefined) res.end();
+            app.get('socketio').sockets.emit('broadcast', list);
+        });
+    };
 };
