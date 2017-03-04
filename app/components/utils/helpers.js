@@ -75,6 +75,13 @@ var helper = {
     saveArticle: function(data) {
         return axios.post('/api/saved', data)
         .then(function(respData) {
+            // NOTE: We are using socket.io to broadcast data
+            // to any clients who are connected to the server.
+            // So that means that any action that causes a 
+            // potential change in the database (on the server)
+            // will result in a broadcast of the data. And the
+            // server will close the response to our POST and
+            // DELETE requests.
             return (''+ respData.status + ' ' + respData.text);
         })
         .catch(function (error) {
