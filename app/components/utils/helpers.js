@@ -21,6 +21,9 @@ var itemList = [];
 // Helper functions for making API Calls
 var helper = {
 
+    /*
+        Makes the query to the NYT API for news articles.
+    */
     runQuery: function(data) {
 
         console.log('helper.runQuery() - ');
@@ -66,13 +69,13 @@ var helper = {
         });
     },
 
+    /*
+        The user has chosen to save an article.
+    */
     saveArticle: function(data) {
-        console.log(data);
-
         return axios.post('/api/saved', data)
         .then(function(respData) {
-            console.log(respData);
-            return respData;
+            return (''+ respData.status + ' ' + respData.text);
         })
         .catch(function (error) {
             if(error) {
@@ -83,6 +86,9 @@ var helper = {
         });
     },
 
+    /*
+        Get all saved articles
+    */
     getArticles: function() {
         return axios.get('/api/saved')
         .then(function(respData) {
@@ -97,11 +103,13 @@ var helper = {
         });
     },
 
+    /*
+        Delete a saved article
+    */
     delArticle: function(data) {
         return axios.delete('/api/saved/'+data._id)
         .then(function(respData) {
-            console.log(respData);
-            return respData;
+            return (''+ respData.status + ' ' + respData.text);
         })
         .catch(function (error) {
             if(error) {

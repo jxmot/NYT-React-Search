@@ -8,6 +8,7 @@ var React = require('react');
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
 
+// INVESTIGATE:
 // will need a means to change this programmatically even 
 // if the choices are hard coded - 
 //
@@ -33,11 +34,8 @@ var Saved = React.createClass({
 
         helpers.getArticles().then(function (response) {
             console.log('received a response');
-            // do something
-            //this.setState({saved: response.data});
             this.setState({saved: response});
-            //this.forceUpdate();
-        }.bind(this));
+         }.bind(this));
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -95,7 +93,6 @@ var Saved = React.createClass({
             </div>
         )
     }
-
 });
 
 module.exports = Saved;

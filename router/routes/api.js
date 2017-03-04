@@ -30,8 +30,7 @@ module.exports = function(app, db, approot) {
         POST /api/saved - 
     */
     app.post('/api/saved', function(req, res) {
-        console.log(req.body);
-
+        console.log('post - /api/saved');
         // use 'headline' and see if it's already
         // been saved, if so then do nothing.
         db.ArticleModel.findOne({'headline': req.body.headline})
@@ -54,8 +53,7 @@ module.exports = function(app, db, approot) {
         DELETE /api/saved:id - 
     */
     app.delete('/api/saved/:id', function(req, res) {
-        console.log('delete /api/saved');
-        console.log(req.params.id);
+        console.log('delete - /api/saved');
         db.ArticleModel.findOneAndRemove({'_id' : req.params.id},
         function(err, result) {
             if(err) throw err;
@@ -67,7 +65,8 @@ module.exports = function(app, db, approot) {
     /*
         Broadcast Articles - searches the database for all records that are
         not marked for deletion (part of a future feature) and broadcasts
-        what it finds to all clients connected via socket.io
+        what it finds to all clients connected via socket.io, since the 
+        article data is being broadcast we will "end" the request.
     */
     function broadcastArticles(res) {
         db.ArticleModel.find({'deleted': false})

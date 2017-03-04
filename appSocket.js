@@ -6,10 +6,10 @@
 exports = module.exports = function (io) {
     // Set socket.io listeners.
     io.on('connection', function(socket) {
-        console.log('client connected');
+        console.log('SOCKET.IO - client connected id = '+socket.id+' addr = '+socket.conn.remoteAddress);
     
-        socket.on('disconnect', function()= {
-            console.log('client disconnected');
+        socket.on('disconnect', function() {
+            console.log('SOCKET.IO - client disconnected');
         });
     });
 };
