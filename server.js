@@ -32,6 +32,9 @@ app.use(function(req, res, next) {
 */
 app.set('port', (process.env.PORT || 3000));
 
+
+var server;
+
 /*
     Set up the database with our models
 */
@@ -47,10 +50,15 @@ db.conn.once('open', function() {
     router(app, db, __dirname);
 
     // go!
-    app.listen(app.get('port'), function () {
+    server = app.listen(app.get('port'), function () {
         console.log('Server - listening on port '+app.get('port'));
         console.log('Server - IDLE - waiting for the first connection');
         console.log('================================================');
+
+        socketEvents = require('./appSocket.js');
+        const io = require('socket.io').listen(server);
+        app.set('socketio', io);
+        socketEvents(io);
     });
 });
 

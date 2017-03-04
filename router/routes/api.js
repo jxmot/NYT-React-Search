@@ -22,7 +22,6 @@ module.exports = function(app, db, approot) {
         .exec(function (err, saved) {
             if(err) throw err;
             var list = JSON.parse(JSON.stringify(saved));
-            console.log(list);
             res.json(list);
         });
     });
@@ -43,12 +42,22 @@ module.exports = function(app, db, approot) {
                 var tmp = new db.ArticleModel(req.body);
                 tmp.save(function (err, doc) {
                     if(err) throw err;
-                    // this will redirect to GET /api/saved
-                    res.redirect('/api/saved');
+                    db.ArticleModel.find({'deleted': false})
+                    .exec(function (err, saved) {
+                        if(err) throw err;
+                        var list = JSON.parse(JSON.stringify(saved));
+                        res.end();
+                        app.get('socketio').sockets.emit('broadcast', list);
+                    });
                 });
             } else {
-                // this will redirect to GET /api/saved
-                res.redirect('/api/saved');
+                db.ArticleModel.find({'deleted': false})
+                .exec(function (err, saved) {
+                    if(err) throw err;
+                    var list = JSON.parse(JSON.stringify(saved));
+                    res.end();
+                    app.get('socketio').sockets.emit('broadcast', list);
+                });
             }
         });
     });
@@ -64,10 +73,13 @@ module.exports = function(app, db, approot) {
             if(err) throw err;
             if(result) {
                 console.log(result);
-                // this will redirect to GET /api/saved
-                //res.redirect('/index');
-                res.end();
-                // read the articles and send via socket
+                db.ArticleModel.find({'deleted': false})
+                .exec(function (err, saved) {
+                    if(err) throw err;
+                    var list = JSON.parse(JSON.stringify(saved));
+                    res.end();
+                    app.get('socketio').sockets.emit('broadcast', list);
+                });
             }
         });
     });
