@@ -7,7 +7,7 @@
 // add/modify items as needed...
 const routes = [
     require('./routes/html.js'),
- //   require('./routes/api.js'),
+    require('./routes/api.js'),
     // NOTE: standard.js MUST be last!
     require('./routes/standard.js')
 ];

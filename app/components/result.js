@@ -5,6 +5,9 @@
 */
 var React = require('react');
 
+// Helper for making AJAX requests to our API
+var helpers = require("./utils/helpers");
+
 var Result = React.createClass({
 
     getInitialState: function() {
@@ -34,10 +37,14 @@ var Result = React.createClass({
         )
     },
 
+    handleSave: function(article, e) {
+        helpers.saveArticle(article)
+    },
+
     renderArticles: function(items, count) {
         var articles = items.map(function(article) {
             var id = 'articleWell-' + article.tagCounter
-            var numberStyle = {padding: "2px"};
+            var numberStyle = {margin: "5px"};
             return (
                 <div className="well" id={id} key={article.tagCounter}>
                     <h3><span className="label label-success" style={numberStyle}>{article.tagCounter}</span><strong>{article.headline}</strong></h3>
@@ -45,9 +52,14 @@ var Result = React.createClass({
                     <h5>{article.sectionName}</h5>
                     <h5>{article.pubDate}</h5>
                     <a target="_blank" href={article.webURL}>{article.webURL}</a>
+                    <br />
+                    <br />
+                    <form role="form">
+                        <button type="button" className="btn btn-success" id="runSave" onClick={this.handleSave.bind(this, article)}>Save</button>
+                    </form>
                 </div>
             )
-        });
+        }.bind(this));
         return (
             <div className="panel-body" id="wellSection">
                 {articles}

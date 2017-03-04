@@ -16,6 +16,8 @@ var articleData = {
 };
 var itemList = [];
 
+//var saveList = [];
+
 // Helper functions for making API Calls
 var helper = {
 
@@ -55,8 +57,60 @@ var helper = {
                 itemList.push(item);
             }
             return itemList;
+        }).catch(function (error) {
+            if(error) {
+                console.log(error);
+                throw error;
+                return null;
+            }
         });
     },
+
+    saveArticle: function(data) {
+        console.log(data);
+
+        return axios.post('/api/saved', data)
+        .then(function(respData) {
+            console.log(respData);
+            return respData;
+        })
+        .catch(function (error) {
+            if(error) {
+                console.log(error);
+                throw error;
+                return null;
+            }
+        });
+    },
+
+    getArticles: function() {
+        return axios.get('/api/saved')
+        .then(function(respData) {
+            return respData.data;
+        })
+        .catch(function (error) {
+            if(error) {
+                console.log(error);
+                throw error;
+                return null;
+            }
+        });
+    },
+
+    delArticle: function(data) {
+        return axios.delete('/api/saved/'+data._id)
+        .then(function(respData) {
+            console.log(respData);
+            return respData;
+        })
+        .catch(function (error) {
+            if(error) {
+                console.log(error);
+                throw error;
+                return null;
+            }
+        });
+    }
 };
 
 // We export the API helper

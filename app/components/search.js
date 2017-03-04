@@ -8,6 +8,7 @@ var React = require('react');
 var helpers = require("./utils/helpers");
 
 var Result = require('./result.js');
+var Saved = require('./saved.js');
 
 // only 3 choices, NYT seems to return a max of 10
 var ITEMQTYCHOICES = ['1', '5', '10'];
@@ -15,7 +16,7 @@ var ITEMQTYCHOICES = ['1', '5', '10'];
 var Search = React.createClass({
 
     getInitialState: function() {
-        console.log('getInitialState.....')
+        console.log('getInitialState.....');
         return {errors: {}, submitted: null, items: []}
     },
 
@@ -56,7 +57,7 @@ var Search = React.createClass({
 
     handleSubmit: function() {
         if(this.isValid()) {
-             helpers.runQuery(this.getFormData())
+            helpers.runQuery(this.getFormData())
             .then(function(data) {
                 console.log('got stuff????')
                 console.log(data.length)
@@ -108,8 +109,16 @@ var Search = React.createClass({
                 </div>
             </div>
             <Result items={this.state.items} count={this.state.count}/>
+            <Saved />
         </div>
         )
+    },
+
+    getSaved: function() {
+        return helpers.getArticles().then(function (response) {
+            console.log(response);
+            return response
+        }.bind(this));
     },
 
     /*

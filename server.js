@@ -35,14 +35,13 @@ app.set('port', (process.env.PORT || 3000));
 /*
     Set up the database with our models
 */
-//var db = require('./models');
-var db = undefined;
+var db = require('./models');
 
 /*  
-    Listen on the port that was configured for us
+    After the database is opened listen on the 
+    port that was configured for us
 */
-//db.conn.once('open', function() {
-
+db.conn.once('open', function() {
     // set up routes
     var router = require('./router');
     router(app, db, __dirname);
@@ -53,7 +52,7 @@ var db = undefined;
         console.log('Server - IDLE - waiting for the first connection');
         console.log('================================================');
     });
-//});
+});
 
 
 
