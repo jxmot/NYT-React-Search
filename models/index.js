@@ -10,6 +10,9 @@
 */
 var env = process.env.NODE_ENV || 'development';
 var config = require('../mongo-config.json')[env];
+// 
+var mongodbURI = process.env.MONGODB_URI || config.MONGODB_URI;
+
 var mongoose = require('mongoose');
 var Promise = require("bluebird");
 
@@ -25,7 +28,7 @@ db.ArticleModel = require('./article.js');
 db.mongoose = mongoose;
 db.conn = mongoose.connection;
 
-mongoose.connect(config.MONGODB_URI, function(err, data){
+mongoose.connect(mongodbURI, function(err, data){
 	if(err)
 	    console.log(err);
 	else{

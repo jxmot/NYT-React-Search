@@ -3,7 +3,7 @@
         "MONGODB_URI": "mongodb://localhost/nytreact_db"
     },
     "test": {
-        "MONGODB_URI": "NOT_USED_IN_THIS_APPLICATION"
+        "MONGODB_URI": "mongodb://localhost/nytreact_db"
     },
     "production": {
         "MONGODB_URI": ""

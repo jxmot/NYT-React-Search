@@ -40,11 +40,10 @@ var Saved = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         console.log('SAVED - componentWillReceiveProps')
-        console.log(nextProps.items)
-        console.log(nextProps.count)
     },
 
     handleDelete: function(article, e) {
+        console.log('SAVED - handleDelete');
         helpers.delArticle(article)
     },
 
@@ -67,21 +66,19 @@ var Saved = React.createClass({
 
     renderSaved: function(saved) {
         var articles = [];
-
         console.log('SAVED - renderSaved');
-        console.log(saved);
-
         if(saved) {
             var articles = saved.map(function(article, index) {
+                var dateSaved = new Date(article.dateSaved).toLocaleString()
                 var id = 'savedWell-' + (index + 1);
                 return (
                     <div className="well" id={id} key={id}>
                         <h3>{article.headline}</h3>
-                        <h5>{article.dateSaved}</h5>
+                        <h5>{dateSaved}</h5>
                         <br />
                         <br />
                         <form role="form">
-                            <button type="button" className="btn btn-success" id="runSave" onClick={this.handleDelete.bind(this, article)}>Delete</button>
+                            <button type="button" className="btn btn-success" id="runDelete" onClick={this.handleDelete.bind(this, article)}>Delete</button>
                         </form>
                     </div>
                 )
