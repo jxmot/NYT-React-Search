@@ -7,6 +7,7 @@ A React-based rendition of the New York Times Article Search application Created
   * [Running from Heroku](#running-from-heroku)
     * [URLs](#urls)
 * [Application Architecture Overview](#application-architecture-overview)
+  * [React Components](#react-components)
 * [Application Flow Overviews](#application-flow-overviews)
   * [Initial page load and API data retrieval](#initial-page-load-and-api-data-retrieval)
   * [Save an Article](#save-n-article)
@@ -50,6 +51,14 @@ The following diagram illustrates the relationships between the browser, server 
 
 <p align="center">
   <img src="./mdimg/appl-1.png" alt="Application Overview" txt="Application Overview"/>
+</p>
+
+## React Components
+
+The following page components are contained withing `app.js` - 
+
+<p align="center">
+  <img src="./mdimg/indexreact.png" alt="React Components" txt="React Components"/>
 </p>
 
 # Application Flow Overviews
