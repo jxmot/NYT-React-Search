@@ -11,12 +11,8 @@ const authKey = 'a1eb7da15d9841e0bc2559a7c6fb17c3';
 // Based on the queryTerm we will create a queryURL 
 const queryURLBase = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=' + authKey + '&q=';
 
-var articleData = {
-    HELPERID: 'NYT Article Search'
-};
+// where we save the articles returned in the NYT response
 var itemList = [];
-
-//var saveList = [];
 
 // Helper functions for making API Calls
 var helper = {
@@ -25,13 +21,6 @@ var helper = {
         Makes the query to the NYT API for news articles.
     */
     runQuery: function(data) {
-
-        console.log('helper.runQuery() - ');
-        console.log(data.searchTerm);
-        console.log(data.numItemsSelect);
-        console.log(data.startDate);
-        console.log(data.endDate);
-    
         // delete any results from the last search
         itemList.splice(0, itemList.length);
 
@@ -47,8 +36,7 @@ var helper = {
             for(var idx=0; idx < limit; idx++) {
                 // let's make this easier to read
                 var article = respData.data.response.docs[idx];
-
-                var item = Object.assign({}, articleData, 
+                var item = Object.assign({}, 
                 {
                     tagCounter: (idx + 1),
                     headline: (article.headline != 'null') ? article.headline.main : '',

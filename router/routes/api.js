@@ -13,7 +13,9 @@ module.exports = function(app, db, approot) {
 
     /* ******************************************************************** */
     /*
-        GET /api/saved - 
+        GET /api/saved - searches the database for all records that are
+        not marked for deletion (part of a future feature) and responds 
+        to the client with what was found.
     */
     app.get('/api/saved', function(req, res) {
         console.log('get - /api/saved');
@@ -66,7 +68,7 @@ module.exports = function(app, db, approot) {
         Broadcast Articles - searches the database for all records that are
         not marked for deletion (part of a future feature) and broadcasts
         what it finds to all clients connected via socket.io, since the 
-        article data is being broadcast we will "end" the request.
+        article data is being broadcast we will "end" the request here.
     */
     function broadcastArticles(res) {
         db.ArticleModel.find({'deleted': false})

@@ -17,7 +17,7 @@ var ITEMQTYCHOICES = ['1', '5', '10'];
 var Search = React.createClass({
 
     getInitialState: function() {
-        console.log('getInitialState.....');
+        console.log('SEARCH - getInitialState');
         return {errors: {}, submitted: null, items: []}
     },
 

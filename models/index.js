@@ -1,9 +1,8 @@
 /* ************************************************************************ */
 /*
     Database Connection and Model Management - Scalable Version                                  
-*/
 
-/*
+
     Mongoose Setup
 
     Based on our run-time environment choose the appropriate 
@@ -14,7 +13,7 @@ var config = require('../mongo-config.json')[env];
 var mongoose = require('mongoose');
 var Promise = require("bluebird");
 
-// satisfy the deprecation warning
+// satisfy the Mongoose deprecation warning
 mongoose.Promise = Promise;
 
 var db = {};
@@ -35,7 +34,6 @@ mongoose.connect(config.MONGODB_URI, function(err, data){
 	}  
 });
 
-// Show any mongoose errors
 db.conn.on("error", function(error) {
     console.log("Mongoose Error: ", error);
     throw error;

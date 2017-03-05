@@ -11,13 +11,12 @@ var helpers = require("./utils/helpers");
 var Result = React.createClass({
 
     getInitialState: function() {
+        console.log('RESULT - getInitialState');
         return {items: [], count: null}
     },
 
     componentWillReceiveProps: function(nextProps) {
         console.log('RESULT - componentWillReceiveProps')
-        console.log(nextProps.items)
-        console.log(nextProps.count)
         if(nextProps.count === 0) this.clearArticles()
     },
 

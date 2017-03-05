@@ -20,26 +20,26 @@ var socket = io.connect();
 var Saved = React.createClass({
 
     getInitialState: function() {
-        console.log('Saved getInitialState')
+        console.log('SAVED - getInitialState')
         return {saved: []}
     },
 
     componentDidMount: function () {
-        console.log('Saved componentDidMount');
+        console.log('SAVED - componentDidMount');
 
         socket.on('broadcast', function(data) {
-            console.log('received a broadcast');
+            console.log('SAVED - received a broadcast');
             this.setState({saved: data});
         }.bind(this));
 
         helpers.getArticles().then(function (response) {
-            console.log('received a response');
+            console.log('SAVED - received a response');
             this.setState({saved: response});
          }.bind(this));
     },
 
     componentWillReceiveProps: function(nextProps) {
-        console.log('Saved - componentWillReceiveProps')
+        console.log('SAVED - componentWillReceiveProps')
         console.log(nextProps.items)
         console.log(nextProps.count)
     },
@@ -49,7 +49,7 @@ var Saved = React.createClass({
     },
 
     render: function() {
-        console.log('Saved render');
+        console.log('SAVED - render');
         return(
             <div className="row">
                 <div className="col-sm-12">
@@ -68,7 +68,7 @@ var Saved = React.createClass({
     renderSaved: function(saved) {
         var articles = [];
 
-        console.log('Saved renderSaved');
+        console.log('SAVED - renderSaved');
         console.log(saved);
 
         if(saved) {
