@@ -28,6 +28,11 @@ var R1C2_INPUT_SIZES = "col-lg-2 col-md-3 col-sm-3 col-xs-5";
 var R2C1_SIZES = "col-lg-3 col-lg-offset-3 col-md-3 col-md-offset-3 col-sm-offset-2 col-sm-4 col-xs-offset-2 col-xs-4";
 //      Col 2 - End Date picker
 var R2C2_SIZES = "col-lg-3 col-md-3 col-sm-4 col-xs-4";
+// Row 3 - 
+//      Col 1 - Search button
+var R3C1_SIZES = "col-lg-3 col-lg-offset-3 col-md-3 col-md-offset-3 col-sm-offset-2 col-sm-4 col-xs-offset-2 col-xs-4";
+//      Col 2 - Clear button
+var R3C2_SIZES = "col-lg-3 col-md-3 col-sm-4 col-xs-4";
 
 var Search = React.createClass({
 
@@ -143,8 +148,14 @@ var Search = React.createClass({
                                     </div>
                                 </div>
                                 <br />
-                                <button type="button" className="btn btn-default" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
-                                <button type="button" className="btn btn-default" id="clearAll" onClick={this.handleClear}><i className="fa fa-trash"></i> Clear Results</button>
+                                <div className="row">
+                                    <div className={R3C1_SIZES}>
+                                        <button type="button" className="btn btn-success" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
+                                    </div>
+                                    <div className={R3C2_SIZES}>
+                                        <button type="button" className="btn btn-danger" id="clearAll" onClick={this.handleClear}><i className="fa fa-trash"></i> Clear Results</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
