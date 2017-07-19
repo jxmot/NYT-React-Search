@@ -64,6 +64,8 @@ var Saved = React.createClass({
         )
     },
 
+    // Issue: Saved articles missing story link - #6
+	//     - Added missing fields
     renderSaved: function(saved) {
         var articles = [];
         console.log('SAVED - renderSaved');
@@ -74,7 +76,12 @@ var Saved = React.createClass({
                 return (
                     <div className="well" id={id} key={id}>
                         <h3>{article.headline}</h3>
-                        <h5>{dateSaved}</h5>
+                        <h5>Saved on: {dateSaved}</h5>
+                        <br />
+                        <h5>{article.byline}</h5>
+                        <h5>{article.sectionName}</h5>
+                        <h5>{article.pubDate}</h5>
+                        <a target="_blank" href={article.webURL}>{article.webURL}</a>
                         <br />
                         <br />
                         <form role="form">
