@@ -14,11 +14,20 @@ var Saved = require('./saved.js');
 // only 3 choices, NYT seems to return a max of 10
 var ITEMQTYCHOICES = ['1', '5', '10'];
 
-var R1C1_SIZES = "col-lg-6 col-sm-6";
-var R1C2_SIZES = "col-lg-6 col-sm-6";
-
-var R2C1_SIZES = "col-lg-3 col-lg-offset-3 col-sm-6";
-var R2C2_SIZES = "col-lg-3 col-sm-6";
+// Row 1 - 
+//      Col 1 - Search term[label & input]
+var R1C1_SIZES = "col-lg-6 col-md-6 col-sm-6 col-xs-8";
+//      Col 2 - Number of Items to...
+var R1C2_SIZES = "col-lg-6 col-md-6 col-sm-6 col-xs-4";
+//          Row 1 - label
+var R1C2_LABEL_SIZES = "col-lg-12 col-md-12 col-sm-12 col-xs-12";
+//          Row 2 - select 
+var R1C2_INPUT_SIZES = "col-lg-2 col-md-3 col-sm-3 col-xs-5";
+// Row 2 - 
+//      Col 1 - Start Date picker
+var R2C1_SIZES = "col-lg-3 col-lg-offset-3 col-md-3 col-md-offset-3 col-sm-offset-2 col-sm-4 col-xs-offset-2 col-xs-4";
+//      Col 2 - End Date picker
+var R2C2_SIZES = "col-lg-3 col-md-3 col-sm-4 col-xs-4";
 
 var Search = React.createClass({
 
@@ -111,7 +120,18 @@ var Search = React.createClass({
                                         {this.renderTextInput('searchTerm', 'Search Term:')}
                                     </div>
                                     <div className={R1C2_SIZES}>
-                                        {this.renderSelect('numItemsSelect', 'Number of Items to Retrieve:', ITEMQTYCHOICES)}
+                                        <div className='form-group'>
+                                            <div className="row">
+                                                <div className={R1C2_LABEL_SIZES}>
+                                                    <label htmlFor='numItemsSelect'>Number of Items to Retrieve:</label>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className={R1C2_INPUT_SIZES}>
+                                                    {this.renderSelectOnly('numItemsSelect', ITEMQTYCHOICES)}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                  </div>
                                  <div className="row">
