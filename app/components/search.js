@@ -78,6 +78,16 @@ var Search = React.createClass({
         }
         return data
     },
+    
+    getToday: function() {
+        var today = new Date()
+        var zeropadM = ''
+        var zeropadD = ''
+        if((today.getMonth() + 1) < 10) zeropadM = '0'
+        if(today.getDate() < 10) zeropadD = '0'
+        var defdate = '' + today.getFullYear() + '-' + zeropadM + (today.getMonth() + 1) + '-' + zeropadD + today.getDate()
+        return defdate
+    },
 
     handleSubmit: function() {
         if(this.isValid()) {
@@ -100,13 +110,7 @@ var Search = React.createClass({
         this.refs.numItemsSelect.value = ITEMQTYCHOICES[0]
         this.refs.startDate.value = ''
         
-        var today = new Date()
-        var zeropadM = ''
-        var zeropadD = ''
-        if((today.getMonth() + 1) < 10) zeropadM = '0'
-        if(today.getDate() < 10) zeropadD = '0'
-
-        this.refs.endDate.value = '' + today.getFullYear() + '-' + zeropadM + (today.getMonth() + 1) + '-' + zeropadD + today.getDate()
+        this.refs.endDate.value = this.getToday()
         console.log('clearing state.....')
         this.setState({submitted: null, items: [], count: 0})
     },
@@ -181,13 +185,7 @@ var Search = React.createClass({
     },
 
     renderDateInput: function(id, label) {
-        
-        var today = new Date()
-        var zeropadM = ''
-        var zeropadD = ''
-        if((today.getMonth() + 1) < 10) zeropadM = '0'
-        if(today.getDate() < 10) zeropadD = '0'
-        var defdate = '' + today.getFullYear() + '-' + zeropadM + (today.getMonth() + 1) + '-' + zeropadD + today.getDate()
+        var defdate = this.getToday()
 
         if(id === 'endDate') {
             return this.renderField(id, label,
