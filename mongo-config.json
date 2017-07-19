@@ -6,6 +6,6 @@
         "MONGODB_URI": "mongodb://localhost/nytreact_db"
     },
     "production": {
-        "MONGODB_URI": ""
+        "MONGODB_URI": "mongodb://heroku_84r6021b:mcghifl31h9v39vctr4q9o6udg@ds119250.mlab.com:19250/heroku_84r6021b"
     }
 }
