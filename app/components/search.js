@@ -53,8 +53,8 @@ var Search = React.createClass({
         var data = {
             searchTerm: this.refs.searchTerm.value,
             numItemsSelect: this.refs.numItemsSelect.value,
-            startDate: this.refs.startDate.value,
-            endDate: this.refs.endDate.value
+            startDate: this.refs.startDate.value.replace(/-/g, ''),
+            endDate: this.refs.endDate.value.replace(/-/g, '')
         }
         return data
     },
@@ -102,8 +102,8 @@ var Search = React.createClass({
                             <form role="form">
                                 {this.renderTextInput('searchTerm', 'Search Term:')}
                                 {this.renderSelect('numItemsSelect', 'Number of Items to Retrieve:', ITEMQTYCHOICES)}
-                                {this.renderTextInput('startDate', 'Start Date (YYYYMMDD):')}
-                                {this.renderTextInput('endDate', 'End Date (YYYYMMDD):')}
+                                {this.renderDateInput('startDate', 'Start Date :')}
+                                {this.renderDateInput('endDate', 'End Date :')}
                                 <br />
                                 <button type="button" className="btn btn-default" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
                                 <button type="button" className="btn btn-default" id="clearAll" onClick={this.handleClear}><i className="fa fa-trash"></i> Clear Results</button>
@@ -122,6 +122,26 @@ var Search = React.createClass({
         return this.renderField(id, label,
             <input type="text" className="form-control" id={id} ref={id}/>
         )
+    },
+
+    renderDateInput: function(id, label) {
+        
+        var today = new Date()
+        var zeropadM = ''
+        var zeropadD = ''
+        if((today.getMonth() + 1) < 10) zeropadM = '0'
+        if(today.getDate() < 10) zeropadD = '0'
+        var defdate = '' + today.getFullYear() + '-' + zeropadM + (today.getMonth() + 1) + '-' + zeropadD + today.getDate()
+
+        if(id === 'endDate') {
+            return this.renderField(id, label,
+                <input type="date" className="form-control" id={id} ref={id} defaultValue={defdate} max={defdate}/>
+            )
+        } else {
+            return this.renderField(id, label,
+                <input type="date" className="form-control" id={id} ref={id} max={defdate}/>
+            )
+        }
     },
 
     renderSelect: function(id, label, values) {
