@@ -6,6 +6,7 @@ A React-based rendition of the New York Times Article Search application Created
 * [Usage](#usage)
   * [Running from Heroku](#running-from-heroku)
     * [URLs](#urls)
+  * [Browser Differences](#browser_differences)
 * [Application Architecture Overview](#application-architecture-overview)
   * [React Components](#react-components)
 * [Application Flow Overviews](#application-flow-overviews)
@@ -44,6 +45,16 @@ The following URLs are recognized by the server and will serve pages -
 * `https://deployed-server/index` - displays the *index* page
 
 No other paths are intended for direct access via the browser.
+
+## Browser Differences
+
+The obvious difference between browsers (_Firefox, Chrome, and IE_) is seen in regards to the HTML5 date picker that replaced the text input fields in the search panel. 
+
+The following browsers were up to date at the time this was noticed :
+* **Firefox 54.0.1 (64-bit)** - A _text input_ field. The **End Date** is filled in with the current date, but no picker controls are present.
+* **Microsoft Edge 38.14393.1066.0** - Displays a _date picker_, but it's not very clean looking. 
+* **Microsoft Internet Explorer 11.1480.14393.0** - Behaves just like Firefox.
+* **Chrome 59.0.3071.115 (Official Build) (64-bit)** - Works perfectly, as expected. 
 
 # Application Architecture Overview
 
