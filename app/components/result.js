@@ -46,7 +46,8 @@ var Result = React.createClass({
             var numberStyle = {margin: "5px"};
             return (
                 <div className="well" id={id} key={article.tagCounter}>
-                    <h3><span className="label label-success" style={numberStyle}>{article.tagCounter}</span><strong>{article.headline}</strong></h3>
+                    <h3><span className="label label-info" style={numberStyle}>{article.tagCounter}</span><strong>{article.headline}</strong></h3>
+                    <br />
                     <h5>{article.byline}</h5>
                     <h5>{article.sectionName}</h5>
                     <h5>{article.pubDate}</h5>

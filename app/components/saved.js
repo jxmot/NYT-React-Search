@@ -85,7 +85,7 @@ var Saved = React.createClass({
                         <br />
                         <br />
                         <form role="form">
-                            <button type="button" className="btn btn-success" id="runDelete" onClick={this.handleDelete.bind(this, article)}>Delete</button>
+                            <button type="button" className="btn btn-danger" id="runDelete" onClick={this.handleDelete.bind(this, article)}>Delete</button>
                         </form>
                     </div>
                 )

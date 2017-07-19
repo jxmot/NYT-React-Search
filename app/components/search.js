@@ -99,7 +99,14 @@ var Search = React.createClass({
         this.refs.searchTerm.value = ''
         this.refs.numItemsSelect.value = ITEMQTYCHOICES[0]
         this.refs.startDate.value = ''
-        this.refs.endDate.value = ''
+        
+        var today = new Date()
+        var zeropadM = ''
+        var zeropadD = ''
+        if((today.getMonth() + 1) < 10) zeropadM = '0'
+        if(today.getDate() < 10) zeropadD = '0'
+
+        this.refs.endDate.value = '' + today.getFullYear() + '-' + zeropadM + (today.getMonth() + 1) + '-' + zeropadD + today.getDate()
         console.log('clearing state.....')
         this.setState({submitted: null, items: [], count: 0})
     },
@@ -153,7 +160,7 @@ var Search = React.createClass({
                                         <button type="button" className="btn btn-success" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
                                     </div>
                                     <div className={R3C2_SIZES}>
-                                        <button type="button" className="btn btn-danger" id="clearAll" onClick={this.handleClear}><i className="fa fa-trash"></i> Clear Results</button>
+                                        <button type="button" className="btn btn-warning" id="clearAll" onClick={this.handleClear}><i className="fa fa-trash"></i> Clear Search</button>
                                     </div>
                                 </div>
                             </form>
