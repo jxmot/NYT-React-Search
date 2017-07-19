@@ -14,6 +14,12 @@ var Saved = require('./saved.js');
 // only 3 choices, NYT seems to return a max of 10
 var ITEMQTYCHOICES = ['1', '5', '10'];
 
+var R1C1_SIZES = "col-lg-6 col-sm-6";
+var R1C2_SIZES = "col-lg-6 col-sm-6";
+
+var R2C1_SIZES = "col-lg-3 col-lg-offset-3 col-sm-6";
+var R2C2_SIZES = "col-lg-3 col-sm-6";
+
 var Search = React.createClass({
 
     getInitialState: function() {
@@ -100,10 +106,22 @@ var Search = React.createClass({
                         </div>
                         <div className="panel-body">
                             <form role="form">
-                                {this.renderTextInput('searchTerm', 'Search Term:')}
-                                {this.renderSelect('numItemsSelect', 'Number of Items to Retrieve:', ITEMQTYCHOICES)}
-                                {this.renderDateInput('startDate', 'Start Date :')}
-                                {this.renderDateInput('endDate', 'End Date :')}
+                                <div className="row">
+                                    <div className={R1C1_SIZES}>
+                                        {this.renderTextInput('searchTerm', 'Search Term:')}
+                                    </div>
+                                    <div className={R1C2_SIZES}>
+                                        {this.renderSelect('numItemsSelect', 'Number of Items to Retrieve:', ITEMQTYCHOICES)}
+                                    </div>
+                                 </div>
+                                 <div className="row">
+                                    <div className={R2C1_SIZES}>
+                                        {this.renderDateInput('startDate', 'Start Date :')}
+                                    </div>
+                                    <div className={R2C2_SIZES}>
+                                        {this.renderDateInput('endDate', 'End Date :')}
+                                    </div>
+                                </div>
                                 <br />
                                 <button type="button" className="btn btn-default" id="runSearch" onClick={this.handleSubmit}><i className="fa fa-search"></i> Search</button>
                                 <button type="button" className="btn btn-default" id="clearAll" onClick={this.handleClear}><i className="fa fa-trash"></i> Clear Results</button>
@@ -142,6 +160,17 @@ var Search = React.createClass({
                 <input type="date" className="form-control" id={id} ref={id} max={defdate}/>
             )
         }
+    },
+
+    renderSelectOnly: function(id, values) {
+        var options = values.map(function(value) {
+            return <option key={value} value={value}>{value}</option>
+        })
+        return (
+            <select className="form-control" id={id} ref={id}>
+                {options}
+            </select>
+        )
     },
 
     renderSelect: function(id, label, values) {
