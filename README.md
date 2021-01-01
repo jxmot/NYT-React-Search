@@ -98,5 +98,5 @@ The following diagrams describe the application's program flow in regards to -
   <img src="./mdimg/appl-4.png" alt="Delete an Article" txt="Delete an Article"/>
 </p>
 
-
-
+---
+<img src="http://webexperiment.info/extcounter/mdcount.php?id=NYT-React-Search">
