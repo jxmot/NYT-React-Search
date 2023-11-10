@@ -16,7 +16,7 @@
   "author": "Jim Motyl",
   "license": "MIT",
   "dependencies": {
-    "axios": "0.12.0",
+    "axios": "1.6.0",
     "bluebird": "3.4.7",
     "body-parser": "1.17.0",
     "express": "4.15.0",
